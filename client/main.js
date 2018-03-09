@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import { Router, Switch, Route } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
+import { Tracker } from 'meteor/tracker';
 
 import Login from '../imports/ui/Login';
 import Signup from '../imports/ui/Signup';
@@ -23,6 +24,11 @@ const routes = (
         </Switch>
     </Router>
 );
+
+Tracker.autorun(() => {
+    const isAuthenticated = !!Meteor.userId();
+    console.log('isAuthenticated', isAuthenticated);
+})
 
 Meteor.startup(() => {
     ReactDOM.render(routes, document.getElementById('app'));
